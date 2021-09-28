@@ -222,7 +222,7 @@ class Rasteriser:
             
             # Open OGR dataset
             ogr_source = ogr.Open(temp_shp)
-            output_file = '{}/{}'.format(Config.get('DATA_DIRECTORY'),self. output_filename)
+            output_file = '{}/{}'.format(Config.get('DATA_DIRECTORY'),self.output_filename)
             self.logger.info('Will write output raster to {}'.format(output_file))
             
             # Create raster dataset and set projection
