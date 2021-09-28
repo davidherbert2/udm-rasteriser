@@ -11,8 +11,7 @@ Created on Wed Jun  5 14:41:41 2019
 from os import path, makedirs, remove
 import traceback, logging
 import uuid
-from osgeo import osr
-import gdal, ogr
+from osgeo import gdal, ogr, osr
 from math import ceil
 from io import BytesIO
 import requests
