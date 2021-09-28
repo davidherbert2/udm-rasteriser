@@ -113,7 +113,7 @@ class FishNet:
         |  Generate the fishnet dataset, based on the code at
         |  https://pcjericks.github.io/py-gdalogr-cookbook/vector_layers.html#create-fishnet-grid        
         """
-        gdal.UseExceptions();
+        gdal.UseExceptions()
         try:
             # Get bounding values
             aoi = self.bbox
