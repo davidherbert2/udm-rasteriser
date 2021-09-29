@@ -144,7 +144,7 @@ class Rasteriser:
         """
         |  Generate the output raster dataset
         """
-        gdal.UseExceptions();
+        gdal.UseExceptions()
         temp_shp = '{}/{}.shp'.format(Config.get('DATA_DIRECTORY'), uuid.uuid4().hex)
         try:
             # Read the supplied GeoJSON data into a DataFrame
