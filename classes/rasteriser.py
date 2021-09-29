@@ -157,7 +157,7 @@ class Rasteriser:
             if isinstance(self.geojson_data, str):
                 self.logger.info('Input GeoJSON is a string, not a dict => converting...')
                 self.geojson_data = loads(self.geojson_data)
-            #self.debug_dump_geojson_to_file('rasteriser_input_data_dump.json', self.geojson_data)
+            #self.__debug_dump_geojson_to_file('rasteriser_input_data_dump.json', self.geojson_data)
             input_data = GeoDataFrame.from_features(self.geojson_data)
             self.logger.debug(input_data.head(10))
             self.logger.info('Done')
@@ -180,7 +180,7 @@ class Rasteriser:
                 fishnet_geojson = FishNet(lad=self.area_codes, netsize=self.resolution).create()
             else:
                 raise ValueError('No boundary information supplied - please supply fishnet GeoJSON, bounding box, or list of LAD codes')
-            #self.debug_dump_geojson_to_file('rasteriser_fishnet_data_dump.json', fishnet_geojson)
+            #self.__debug_dump_geojson_to_file('rasteriser_fishnet_data_dump.json', fishnet_geojson)
             fishnet = GeoDataFrame.from_features(fishnet_geojson)
             x_min, y_min, x_max, y_max = fishnet.total_bounds
             self.logger.debug(fishnet.head(10))            
@@ -230,12 +230,11 @@ class Rasteriser:
             rasterised = driver.Create(output_file, xdim, ydim, 1, gdal.GDT_Byte)
             rasterised.SetGeoTransform((x_min, self.resolution, 0, y_max, 0, -self.resolution))
             srs = osr.SpatialReference()
-            srs.ImportFromEPSG(27700)
+            srs.ImportFromEPSG(Config.get('BRITISH_NATIONAL_GRID'))
             rasterised.SetProjection(srs.ExportToWkt())
             
             # Set nodata values 
             band = rasterised.GetRasterBand(1)
-            #band.SetNoDataValue(self.nodata)
             band.Fill(self.nodata)
             
             # Do rasterisation
@@ -254,7 +253,7 @@ class Rasteriser:
                 self.logger.info('Cleaning up {}'.format(shpf))
                 shpf.unlink()
                 
-    def debug_dump_geojson_to_file(self, filename, json_data):
+    def __debug_dump_geojson_to_file(self, filename, json_data):
         """
         Dump the given JSON data to a file for examination 
         """

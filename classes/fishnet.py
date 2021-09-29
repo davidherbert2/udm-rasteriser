@@ -180,7 +180,7 @@ class FishNet:
                 
             out_data_source = out_driver.CreateDataSource(output_file)
             srs = osr.SpatialReference()
-            srs.ImportFromEPSG(27700)
+            srs.ImportFromEPSG(Config.get('BRITISH_NATIONAL_GRID'))
             out_layer = out_data_source.CreateLayer(output_file, srs=srs, geom_type=ogr.wkbPolygon)
             
             # Add a FID field
@@ -232,7 +232,7 @@ class FishNet:
             fishnet_output = None
             if self.outfile is None:
                 # Read the memory buffer GeoJSON into Python dict structure
-                memfile_json = self.read_file(output_file).decode('utf-8')                
+                memfile_json = self.__read_file(output_file).decode('utf-8')                
                 fishnet_output = loads(memfile_json)               
             else:
                 fishnet_output = output_file                        
@@ -242,7 +242,7 @@ class FishNet:
             self.logger.warning(traceback.format_exc())
             return None
         
-    def read_file(self, filename):
+    def __read_file(self, filename):
         """
         Read an in-memory file
         https://gis.stackexchange.com/questions/255153/gdal-vectortranslate-returns-an-empty-file

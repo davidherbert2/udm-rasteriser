@@ -33,18 +33,21 @@ class Config:
     __conf = {
             
         # NISMOD-DB++ API  
-        'NISMOD_DB_USERNAME' : __ini_parser['API_CREDENTIALS']['username'],
-        'NISMOD_DB_PASSWORD' : __ini_parser['API_CREDENTIALS']['password'],
-        'NISMOD_DB_API_URL'  : 'https://www.nismod.ac.uk/api/data',                
+        'NISMOD_DB_USERNAME'   : __ini_parser['API_CREDENTIALS']['username'],
+        'NISMOD_DB_PASSWORD'   : __ini_parser['API_CREDENTIALS']['password'],
+        'NISMOD_DB_API_URL'    : 'https://www.nismod.ac.uk/api/data',                
         
         # Logging
-        'LOG_LEVEL'          : logging.INFO,
-        'LOG_FILE'           : join(__project_root, 'logs', 'rasteriser.log'),
-        'LOG_FORMAT'         : '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        'LOG_DATE_FORMAT'    : '%d-%m %H:%M',
+        'LOG_LEVEL'            : logging.INFO,
+        'LOG_FILE'             : join(__project_root, 'logs', 'rasteriser.log'),
+        'LOG_FORMAT'           : '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        'LOG_DATE_FORMAT'      : '%d-%m %H:%M',
         
         # Default data directory
-        'DATA_DIRECTORY'     : join(__project_root, 'data')
+        'DATA_DIRECTORY'       : join(__project_root, 'data'),
+
+        # British National Grid projection
+        'BRITISH_NATIONAL_GRID': 27700
     }
     
     __setters = ['LOG_LEVEL']
