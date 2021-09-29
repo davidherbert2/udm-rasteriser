@@ -170,13 +170,15 @@ class TestRasteriser(unittest.TestCase):
                 'scale': 'lad',
                 'area_codes': ['E07000004','E07000008','E07000009','E07000011'],
                 'classification_codes': ['10056', '10111'],
-                'export_format': 'geojson'
+                'export_format': 'geojson',
+                'year': 2017
             }
             api_url = '{}/mastermap/areas'.format(Config.get('NISMOD_DB_API_URL'))
             auth_username = Config.get('NISMOD_DB_USERNAME')
             auth_password = Config.get('NISMOD_DB_PASSWORD')
             self.logger_r.info('Calling API to extract input GeoJSON data...')
             r = requests.get(api_url, params=api_parms, auth=(auth_username, auth_password))
+            self.logger_r.debug('API URL {}, params {}, auth user {}'.format(api_url, api_parms, auth_username))
             input_geojson = r.json()
             # Call rasteriser
             self.logger_r.info('Calling rasteriser...')

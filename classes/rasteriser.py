@@ -151,7 +151,7 @@ class Rasteriser:
             self.logger.info('Creating GeoDataFrame from input...')
             
             #self.logger.debug('GeoJSON follows:')
-            #elf.logger.debug(self.geojson_data)
+            #self.logger.debug(self.geojson_data)
             #self.logger.debug('GeoJSON end')
             
             if isinstance(self.geojson_data, str):
