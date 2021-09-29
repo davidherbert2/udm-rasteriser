@@ -9,6 +9,7 @@ Created on Thu Jun  6 12:17:17 2019
 """
 
 from os import remove, path
+from pathlib import Path
 import uuid
 import unittest
 import logging
@@ -18,8 +19,8 @@ from geopandas import GeoDataFrame, overlay
 
 from classes import Config, FishNet, Rasteriser
 
-class TestFishNet(unittest.TestCase):    
-
+class TestFishNet(unittest.TestCase):
+        
     def setUp(self):
         logging.basicConfig(
             level=Config.get('LOG_LEVEL'),
@@ -79,7 +80,11 @@ class TestFishNet(unittest.TestCase):
         FishNet(outfile=output_file, outformat='ESRI Shapefile', lad=['E07000004']).create()
         self.assertTrue(path.exists(output_path))
         self.assertTrue(path.getsize(output_path) > 0)
-        remove(output_path)
+        # Remove output file (shapefile in multiple parts)
+        filestem = Path(output_file).stem
+        for shpf in Path(Config.get('DATA_DIRECTORY')).glob('{}.*'.format(filestem)):
+            self.logger.info('Cleaning up {}'.format(shpf))
+            shpf.unlink()    
         self.logger.info('Completed')
 
 class TestRasteriser(unittest.TestCase):
